@@ -27,8 +27,8 @@
   height: 40%;
 }
 .MMM-OpenmapWeather .currentWeatherIconWrapper .currentWeatherIcon {
-  max-width: 95px;
-  max-height: 95px;
+  max-width: 90px;
+  max-height: 90px;
   width: auto;
   height: auto;
   margin:0;
