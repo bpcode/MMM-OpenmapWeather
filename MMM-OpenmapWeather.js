@@ -140,11 +140,11 @@ Module.register("MMM-OpenmapWeather",{
 	addExtraInfoWeather: function(wrapper) {
 
 		var small = document.createElement("div");
-		small.className = "normal small";
+		small.className = "normal medium";
 
-		var windIcon = document.createElement("span");
-		windIcon.className = "wi wi-strong-wind dimmed";
-		small.appendChild(windIcon);
+		// var windIcon = document.createElement("span");
+		// windIcon.className = "wi wi-strong-wind dimmed";
+		// small.appendChild(windIcon);
 
 		var windSpeed = document.createElement("span");
 		windSpeed.innerHTML = " " + this.windSpeed;
@@ -215,9 +215,9 @@ Module.register("MMM-OpenmapWeather",{
 			return wrapper;
 		}
 
-		if (this.config.onlyTemp === false) {
-			this.addExtraInfoWeather(wrapper);
-		}
+		// if (this.config.onlyTemp === false) {
+		// 	this.addExtraInfoWeather(wrapper);
+		// }
 
 		var large = document.createElement("div");
 		large.className = "large light";
@@ -290,6 +290,9 @@ Module.register("MMM-OpenmapWeather",{
 		//
 		// 	wrapper.appendChild(small);
 		// }
+		if (this.config.onlyTemp === false) {
+			this.addExtraInfoWeather(wrapper);
+		}
 
 		return wrapper;
 	},
