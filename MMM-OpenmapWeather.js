@@ -31,6 +31,7 @@ Module.register("MMM-OpenmapWeather",{
 		showIndoorTemperature: false,
 		showIndoorHumidity: false,
 		showFeelsLike: true,
+		showSunTime: false, //for sunrise and sunset times
 
 		initialLoadDelay: 0, // 0 seconds delay
 		retryDelay: 2500,
@@ -44,7 +45,7 @@ Module.register("MMM-OpenmapWeather",{
 
 		onlyTemp: false,
 		roundTemp: false,
-        
+
 		colorIcon: false,
 		iconTable: {
 			"01d": "wi-day-sunny",
@@ -139,7 +140,7 @@ Module.register("MMM-OpenmapWeather",{
 	addExtraInfoWeather: function(wrapper) {
 
 		var small = document.createElement("div");
-		small.className = "normal medium";
+		small.className = "normal small";
 
 		var windIcon = document.createElement("span");
 		windIcon.className = "wi wi-strong-wind dimmed";
@@ -179,15 +180,22 @@ Module.register("MMM-OpenmapWeather",{
 			small.appendChild(spacer);
 			small.appendChild(humidityIcon);
 		}
+		if (this.config.showFeelsLike && this.config.onlyTemp === false) {
+			var feelsLike = document.createElement("span");
+			feelsLike.className = "dimmed";
+			feelsLike.innerHTML = "Feels: " + this.feelsLike + "&deg;" + "C";
+			small.appendChild(feelsLike);
+		}
 
-		var sunriseSunsetIcon = document.createElement("span");
-		sunriseSunsetIcon.className = "wi dimmed " + this.sunriseSunsetIcon;
-		small.appendChild(sunriseSunsetIcon);
+		if (this.config.showSunTime) {
+			var sunriseSunsetIcon = document.createElement("span");
+			sunriseSunsetIcon.className = "wi dimmed " + this.sunriseSunsetIcon;
+			small.appendChild(sunriseSunsetIcon);
 
-		var sunriseSunsetTime = document.createElement("span");
-		sunriseSunsetTime.innerHTML = " " + this.sunriseSunsetTime;
-		small.appendChild(sunriseSunsetTime);
-
+			var sunriseSunsetTime = document.createElement("span");
+			sunriseSunsetTime.innerHTML = " " + this.sunriseSunsetTime;
+			small.appendChild(sunriseSunsetTime);
+		}
 		wrapper.appendChild(small);
 	},
 
@@ -244,7 +252,7 @@ Module.register("MMM-OpenmapWeather",{
 
 		var temperature = document.createElement("span");
 		temperature.className = "bright";
-		temperature.innerHTML = " " + this.temperature.replace(".", this.config.decimalSymbol) + "&deg;" + degreeLabel;
+		temperature.innerHTML = this.temperature.replace(".", this.config.decimalSymbol) + "&deg;" + degreeLabel;
 		large.appendChild(temperature);
 
 		if (this.config.showIndoorTemperature && this.indoorTemperature) {
@@ -271,17 +279,17 @@ Module.register("MMM-OpenmapWeather",{
 
 		wrapper.appendChild(large);
 
-		if (this.config.showFeelsLike && this.config.onlyTemp === false){
-			var small = document.createElement("div");
-			small.className = "normal medium";
-
-			var feelsLike = document.createElement("span");
-			feelsLike.className = "dimmed";
-			feelsLike.innerHTML = this.translate("FEELS") + " " + this.feelsLike + "&deg;" + degreeLabel;
-			small.appendChild(feelsLike);
-
-			wrapper.appendChild(small);
-		}
+		// if (this.config.showFeelsLike && this.config.onlyTemp === false){
+		// 	var small = document.createElement("div");
+		// 	small.className = "normal medium";
+		//
+		// 	var feelsLike = document.createElement("span");
+		// 	feelsLike.className = "dimmed";
+		// 	feelsLike.innerHTML = this.translate("FEELS") + " " + this.feelsLike + "&deg;" + degreeLabel;
+		// 	small.appendChild(feelsLike);
+		//
+		// 	wrapper.appendChild(small);
+		// }
 
 		return wrapper;
 	},
