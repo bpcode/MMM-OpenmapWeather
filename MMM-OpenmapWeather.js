@@ -140,7 +140,7 @@ Module.register("MMM-OpenmapWeather",{
 	addExtraInfoWeather: function(wrapper) {
 
 		var small = document.createElement("div");
-		small.className = "normal medium";
+		small.className = "extra";
 
 		// var windIcon = document.createElement("span");
 		// windIcon.className = "wi wi-strong-wind dimmed";
@@ -220,7 +220,7 @@ Module.register("MMM-OpenmapWeather",{
 		// }
 
 		var large = document.createElement("div");
-		large.className = "large light";
+		large.className = "temp";
 
 		var weatherIcon = document.createElement("span");
 		if(this.config.colorIcon){
@@ -251,7 +251,14 @@ Module.register("MMM-OpenmapWeather",{
 		}
 
 		var temperature = document.createElement("span");
-		temperature.className = "bright";
+		if (this.temperature < 15) {
+			temperature.className = "cold";
+		}
+		else if (this.temperature < 25) {
+			temperature.className = "perfect";
+		} else {
+			temperature.className = "hot";
+		}
 		temperature.innerHTML = this.temperature.replace(".", this.config.decimalSymbol) + "&deg;" + degreeLabel;
 		large.appendChild(temperature);
 
